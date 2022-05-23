@@ -32,11 +32,10 @@ async function run() {
         })
 
         app.get('/tools/:id', async (req, res) => {
-
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
-            const tool = await toolCollection.findOne(query);
-            res.send(tool)
+            const result = await toolCollection.findOne(query);
+            res.send(result)
         })
         
         app.put('/user/:email', async(req, res) =>{
