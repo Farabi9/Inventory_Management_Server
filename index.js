@@ -21,7 +21,8 @@ async function run() {
     try {
         await client.connect();
         const toolCollection = client.db('phone-pear').collection('tools');
-        const userCollection = client.db('phone-pear').collection('user');
+        const userCollection = client.db('phone-pear').collection('user');        const productCollection = client.db('phone-pear').collection('products');
+
 
 
 
@@ -37,20 +38,13 @@ async function run() {
             const result = await toolCollection.findOne(query);
             res.send(result)
         })
-        
-        app.put('/user/:email', async(req, res) =>{
-            const email = req.params.email;
-            const user = req.body.detail;
-            const filter = { email: email};
-            const options = { upsert: true };
-            const updateDoc = {
-                $set: user,
-            };
-            const result = await userCollection.updateOne(filter,updateDoc, options)
-            res.send(result)
-            
-
+        app.post('/products', async (req, res) => {
+            const product = req.body;
+            const result = await productCollection.insertOne(product);
+            res.send(result);
         })
+        
+     
     }
     finally {
 
