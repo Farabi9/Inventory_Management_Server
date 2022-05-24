@@ -21,7 +21,9 @@ async function run() {
     try {
         await client.connect();
         const toolCollection = client.db('phone-pear').collection('tools');
-        const userCollection = client.db('phone-pear').collection('user');        const productCollection = client.db('phone-pear').collection('products');
+        const userCollection = client.db('phone-pear').collection('user');
+        const productCollection = client.db('phone-pear').collection('products');
+        const reviewCollection = client.db('phone-pear').collection('reviews');
 
 
 
@@ -43,13 +45,19 @@ async function run() {
             const result = await productCollection.insertOne(product);
             res.send(result);
         })
-        app.get('/products', async(req, res) =>{
-            const query ={};
+        app.get('/products', async (req, res) => {
+            const query = {};
             const result = await productCollection.find(query).toArray()
             res.send(result);
         })
-        
-     
+
+        app.post('/addreview', async (req, res) => {
+            const review = req.body;
+            const result = await reviewCollection.insertOne(review);
+            res.send(result);
+        })
+
+
     }
     finally {
 
