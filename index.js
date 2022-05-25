@@ -24,6 +24,7 @@ async function run() {
         const userCollection = client.db('phone-pear').collection('user');
         const productCollection = client.db('phone-pear').collection('products');
         const reviewCollection = client.db('phone-pear').collection('reviews');
+        const orderCollection = client.db('phone-pear').collection('orders');
 
 
 
@@ -55,6 +56,18 @@ async function run() {
             const review = req.body;
             const result = await reviewCollection.insertOne(review);
             res.send(result);
+        })
+
+        app.get('/review', async(req, res) =>{
+            const query = {};
+            const result = await reviewCollection.find(query).toArray();
+            res.send(result) 
+        })
+
+        app.post('/addorder', async(req, res) =>{
+                 const order = req.body;
+                 const result = await orderCollection.insertOne(order);
+                 res.send(result)
         })
 
 
