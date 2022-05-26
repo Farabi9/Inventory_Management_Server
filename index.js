@@ -76,9 +76,21 @@ async function run() {
             res.send(myOrders);  
         })
 
+        app.get('/orders', async(req, res) =>{
+            const query = {};
+            const result = await orderCollection.find(query).toArray();
+            res.send(result)
+        })
+
     app.post('/users', async(req, res) =>{
         const user = req.body;
         const result = await userCollection.insertOne(user)
+        res.send(result)
+    })
+
+    app.get('/users', async(req, res) =>{
+        const query = {};
+        const result = await userCollection.find(query).toArray()
         res.send(result)
     })
 
