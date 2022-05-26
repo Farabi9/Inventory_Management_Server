@@ -21,11 +21,10 @@ async function run() {
     try {
         await client.connect();
         const toolCollection = client.db('phone-pear').collection('tools');
-        const userCollection = client.db('phone-pear').collection('user');
+        const userCollection = client.db('phone-pear').collection('users');
         const productCollection = client.db('phone-pear').collection('products');
         const reviewCollection = client.db('phone-pear').collection('reviews');
         const orderCollection = client.db('phone-pear').collection('orders');
-
 
 
 
@@ -77,6 +76,11 @@ async function run() {
             res.send(myOrders);  
         })
 
+    app.post('/users', async(req, res) =>{
+        const user = req.body;
+        const result = await userCollection.insertOne(user)
+        res.send(result)
+    })
 
 
     }
